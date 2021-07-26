@@ -7,13 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import service.userService;
 
 import java.io.IOException;
 
 public class logIn {
-//ass
+
     private userService userService = new userService();
 
     @FXML
@@ -21,6 +23,7 @@ public class logIn {
 
     @FXML
     PasswordField passwordField;
+
 
     public void signInPressed(){
         String username = usernameField.getText();
@@ -58,4 +61,6 @@ public class logIn {
             e.printStackTrace();
         }
     }
+
+
 }
