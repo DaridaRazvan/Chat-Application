@@ -11,7 +11,18 @@ import java.util.List;
 
 public class userRepository {
     public void addUser(User user){
+        String sql = "insert into users (username, password, firstname, lastname) values (?, ?, ?, ?)";
 
+        try(Connection connection = new dbConnection().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getFirstName());
+            ps.setString(4, user.getLastName());
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public void updateUser(){
@@ -31,7 +42,7 @@ public class userRepository {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()) {
             while(rs.next()){
-                users.add(new User(rs.getInt("user_id"),rs.getString("username"), rs.getString("password"), rs.getString("first_name"), rs.getString("last_name")));
+                users.add(new User(rs.getString("username"), rs.getString("password"), rs.getString("first_name"), rs.getString("last_name")));
             }
         }catch (SQLException e){
             e.printStackTrace();
