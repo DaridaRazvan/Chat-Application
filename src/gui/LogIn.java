@@ -7,14 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import service.userService;
 
 import java.io.IOException;
 
-public class logIn {
+public class LogIn {
 
     private userService userService = new userService();
 
@@ -61,6 +59,5 @@ public class logIn {
             e.printStackTrace();
         }
     }
-
 
 }

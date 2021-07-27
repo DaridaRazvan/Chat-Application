@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../gui/logIn.fxml"));
         primaryStage.setTitle("Welcome to the Chat Application!");
-        primaryStage.setScene(new Scene(root, 350, 275));
+        primaryStage.setScene(new Scene(root, 400, 300));
         primaryStage.show();
     }
 

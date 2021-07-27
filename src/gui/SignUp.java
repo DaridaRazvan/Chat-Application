@@ -10,8 +10,7 @@ import javafx.scene.image.ImageView;
 import service.userService;
 
 
-public class signUp {
-
+public class SignUp {
 
     @FXML
     TextField usernameField;
@@ -62,7 +61,7 @@ public class signUp {
 
     public void showImage() {
         try {
-            Image image = new Image("wp4410739.jpg");
+            Image image = new Image("photos/mnt.jpg");
             imageView.setImage(image);
             imageView.setCache(true);
         } catch (Exception e) {
