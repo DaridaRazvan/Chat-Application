@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import service.userService;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 
 public class SignUp {
 
@@ -26,10 +29,6 @@ public class SignUp {
 
     @FXML
     TextField lastNameField;
-
-    @FXML
-    ImageView imageView;
-
 
     public void addUser(){
         String pass = passwordField.getText();
@@ -53,20 +52,4 @@ public class SignUp {
             alertMsg.show();
         }
     }
-
-    public void initialize()
-    {
-        showImage();
-    }
-
-    public void showImage() {
-        try {
-            Image image = new Image("photos/mnt.jpg");
-            imageView.setImage(image);
-            imageView.setCache(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }

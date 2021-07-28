@@ -56,9 +56,9 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="imageView" fitHeight="428.0" fitWidth="216.0" layoutX="395.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="428.0" fitWidth="216.0" layoutX="395.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../photos/mnt.jpg" />
+            <Image url="@../photos/mnt.jpg" />
          </image>
       </ImageView>
    </children>

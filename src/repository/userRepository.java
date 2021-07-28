@@ -1,6 +1,8 @@
 package repository;
 
 import domain.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,6 +35,23 @@ public class userRepository {
 
     }
 
+    public ObservableList<String> getUsersName(){
+        ObservableList<String> users = FXCollections.observableArrayList();
+
+        String sql = "Select firstname, lastname from users";
+        try(Connection connection = new dbConnection().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()){
+            while(rs.next()){
+                users.add(rs.getString("firstname") + " " + rs.getString("lastname"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
     public List<User> getUsers(){
         List<User> users = new ArrayList<>();
 
@@ -42,7 +61,7 @@ public class userRepository {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()) {
             while(rs.next()){
-                users.add(new User(rs.getString("username"), rs.getString("password"), rs.getString("first_name"), rs.getString("last_name")));
+                users.add(new User(rs.getString("username"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname")));
             }
         }catch (SQLException e){
             e.printStackTrace();
