@@ -17,7 +17,7 @@ public class MainWindow {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("addUsers.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Scene scene = new Scene(fxmlLoader.load(), 400, 400);
             Stage stage = new Stage();
             stage.setTitle("Choose an user!");
             stage.setScene(scene);
