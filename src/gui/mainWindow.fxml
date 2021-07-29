@@ -100,6 +100,13 @@
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
+         <center>
+            <TextArea editable="false" opacity="0.54" prefHeight="263.0" prefWidth="386.0" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </TextArea>
+         </center>
       </BorderPane>
    </right>
 </BorderPane>
