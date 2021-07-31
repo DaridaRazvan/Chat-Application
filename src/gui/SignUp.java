@@ -5,12 +5,7 @@ import exception.CustomException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import service.userService;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 
 public class SignUp {

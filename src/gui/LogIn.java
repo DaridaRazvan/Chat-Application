@@ -4,6 +4,7 @@ package gui;
 import exception.CustomException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -33,13 +34,22 @@ public class LogIn {
             return;
         }
 
+
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("mainWindow.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Parent root = fxmlLoader.load();
+            MainWindow mainWindow = fxmlLoader.getController();
+            mainWindow.setUser(username,password);
+
             Stage stage = new Stage();
+            stage.setScene(new Scene(root,600,400));
+
+            //Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            //Stage stage = new Stage();
             stage.setTitle("Welcome!");
-            stage.setScene(scene);
+            //stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

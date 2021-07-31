@@ -28,7 +28,7 @@
                         <Image url="@../photos/plus.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="31.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="31.0" fitWidth="26.0" onMouseClicked="#setFriendList" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../photos/friends.png" />
                      </image>
