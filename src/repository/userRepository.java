@@ -36,8 +36,8 @@ public class userRepository {
 
     }
 
-    public ObservableList<User> getUsersName(int userId){
-        ObservableList<User> users = FXCollections.observableArrayList();
+    public ArrayList<User> getUsersName(int userId){
+        ArrayList<User> users = new ArrayList<>();
 
         String sql = "Select * from users where id <> "+ userId;
         try(Connection connection = new dbConnection().getConnection();
@@ -160,5 +160,17 @@ public class userRepository {
         return new User(-1,"-","-","-","-");
     }
 
+    public void addInFriendList(int id1, int id2)
+    {
+        String sql = "Insert into friendlist (userid1, userid2) values (?,?)";
+        try(Connection connection = new dbConnection().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id1);
+            ps.setInt(2, id2);
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
 
