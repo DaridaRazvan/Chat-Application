@@ -34,22 +34,20 @@ public class LogIn {
             return;
         }
 
-
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("mainWindow.fxml"));
             Parent root = fxmlLoader.load();
+
             MainWindow mainWindow = fxmlLoader.getController();
             mainWindow.setUser(username,password);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root,600,400));
+            //stage.setTitle("Welcome!");
 
-            //Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-            //Stage stage = new Stage();
-            stage.setTitle("Welcome!");
-            //stage.setScene(scene);
+            mainWindow.setTitle(stage);
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -13,7 +13,7 @@ public class AddUsers {
     public User user;
 
     public void initialize(){
-        populateList();
+
     }
 
     public void setUser(User user){
@@ -21,9 +21,11 @@ public class AddUsers {
     }
 
 
-    public void populateList(){
+    public void populateList(User user){
         userRepository userRepo = new userRepository();
-        ObservableList<String> items = userRepo.getUsersName(0);
+        setUser(user);
+        //ObservableList<String> items = userRepo.getUsersName(user.getId());
+        ObservableList<User> items = userRepo.getUsersName(user.getId());
         listView.setItems(items);
     }
 }

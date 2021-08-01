@@ -36,15 +36,15 @@ public class userRepository {
 
     }
 
-    public ObservableList<String> getUsersName(int userId){
-        ObservableList<String> users = FXCollections.observableArrayList();
+    public ObservableList<User> getUsersName(int userId){
+        ObservableList<User> users = FXCollections.observableArrayList();
 
-        String sql = "Select firstname, lastname from users where id <> "+ userId;
+        String sql = "Select * from users where id <> "+ userId;
         try(Connection connection = new dbConnection().getConnection();
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()){
             while(rs.next()){
-                users.add(rs.getString("firstname") + " " + rs.getString("lastname"));
+                users.add(new User(rs.getInt("id"),rs.getString("username"), rs.getString("password"), rs.getString("firstname"), rs.getString("lastname")));
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -123,4 +123,42 @@ public class userRepository {
         }
         return -1;
     }
+
+    public ArrayList<Integer> getUserFriends(User user){
+        ArrayList<Integer> userFriends = new ArrayList<>();
+        String sql = "Select * from friendlist where userid1= " + user.getId() +" or userid2 = " + user.getId();
+        try(Connection connection = new dbConnection().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+            while(rs.next()) {
+                int id = rs.getInt("userid1");
+                if(id != user.getId())
+                    userFriends.add(id);
+                else {
+                    userFriends.add(rs.getInt("userid2"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userFriends;
+    }
+
+    public User getUser(int id){
+        String sql = "Select * from users where id = " + id;
+        try(Connection connection = new dbConnection().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+            while(rs.next()) {
+                    return new User(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("firstname"),rs.getString("lastname"));
+                }
+            }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new User(-1,"-","-","-","-");
+    }
+
 }
+
