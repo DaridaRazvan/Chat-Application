@@ -20,7 +20,7 @@
                         <Insets left="7.0" top="10.0" />
                      </VBox.margin>
                   </ImageView>
-                  <ImageView fx:id="imagePlus" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#addUsers" onMouseEntered="#whenPressed" onMouseExited="#whenReleased" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imagePlus" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#addUsers" onMouseEntered="#whenHoverEnterPlus" onMouseExited="#whenHoverExitPlus" pickOnBounds="true" preserveRatio="true">
                      <VBox.margin>
                         <Insets left="7.0" top="170.0" />
                      </VBox.margin>
@@ -28,7 +28,7 @@
                         <Image url="@../photos/plus.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="31.0" fitWidth="26.0" onMouseClicked="#setFriendList" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageFriends" fitHeight="31.0" fitWidth="26.0" onMouseClicked="#setFriendList" onMouseEntered="#whenHoverEnterFriends" onMouseExited="#whenHoverExitFriends" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../photos/friends.png" />
                      </image>
@@ -36,7 +36,7 @@
                         <Insets left="7.0" />
                      </VBox.margin>
                   </ImageView>
-                  <ImageView fitHeight="31.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageBubble" fitHeight="31.0" fitWidth="27.0" onMouseClicked="#showMessages" onMouseEntered="#whenHoverEnterBubble" onMouseExited="#whenHoverExitBubble" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../photos/speech-bubbles-with-ellipsis.png" />
                      </image>
@@ -44,7 +44,7 @@
                         <Insets left="7.0" />
                      </VBox.margin>
                   </ImageView>
-                  <ImageView fx:id="logOutButton" fitHeight="24.0" fitWidth="23.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#logOutPressed" pickOnBounds="true">
+                  <ImageView fx:id="logOutButton" fitHeight="24.0" fitWidth="23.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#logOutPressed" onMouseEntered="#whenHoverEnterLogOut" onMouseExited="#whenHoverExitLogOut" pickOnBounds="true">
                      <image>
                         <Image url="@../photos/logout.png" />
                      </image>
@@ -91,7 +91,7 @@
                         <Font size="15.0" />
                      </font>
                   </TextField>
-                  <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageSend" fitHeight="30.0" fitWidth="32.0" onMouseEntered="#whenHoverEnterSend" onMouseExited="#whenHoverExitSend" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../photos/send.png" />
                      </image>

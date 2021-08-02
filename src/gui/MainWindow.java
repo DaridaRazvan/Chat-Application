@@ -1,5 +1,6 @@
 package gui;
 
+import domain.Message;
 import domain.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import repository.messageRepository;
 import repository.userRepository;
 
 import java.io.IOException;
@@ -26,9 +28,28 @@ public class MainWindow {
     @FXML
     ImageView imagePlus;
 
+    @FXML
+    ImageView imageFriends;
+
+    @FXML
+    ImageView imageBubble;
+
+    @FXML
+    ImageView imageSend;
+
     private User user;
-    Image released = new Image("photos/plus.png");
-    Image pressed = new Image("photos/plus_blue.png");
+
+    Image hoverExit_plus = new Image("photos/plus.png");
+    Image hoverEnter_plus = new Image("photos/plus_orange.png");
+    Image hoverExit_friends = new Image("photos/friends.png");
+    Image hoverEnter_friends = new Image("photos/friends_orange.png");
+    Image hoverExit_bubble = new Image("photos/speech-bubbles-with-ellipsis.png");
+    Image hoverEnter_bubble = new Image("photos/speech-bubbles-with-ellipsis_orange.png");
+    Image hoverExit_logout = new Image("photos/logout.png");
+    Image hoverEnter_logout = new Image("photos/logout_orange.png");
+    Image hoverExit_send = new Image("photos/send.png");
+    Image hoverEnter_send = new Image("photos/send_orange.png");
+
     public void initialize(){
     }
 
@@ -37,7 +58,7 @@ public class MainWindow {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("addUsers.fxml"));
             Parent root = fxmlLoader.load();
-            imagePlus.setImage(released);
+            imagePlus.setImage(hoverExit_plus);
             AddUsers addUsers = fxmlLoader.getController();
             addUsers.populateList(user);
 
@@ -77,12 +98,58 @@ public class MainWindow {
         }
         listView.setItems(friendList);
     }
-    public void whenPressed()
+
+    public void showMessages()
     {
-        imagePlus.setImage(pressed);
+        listView.getItems().clear();
+        ObservableList<User> userList = FXCollections.observableArrayList();
+        messageRepository messageRepository = new messageRepository();
+        userRepository userRepository = new userRepository();
+        ArrayList<Integer> users = messageRepository.getUserMessage(user);
+        for(int u : users)
+        {
+            userList.add(userRepository.getUser(u));
+        }
+        listView.setItems(userList);
     }
-    public void whenReleased()
+    public void whenHoverEnterPlus()
     {
-        imagePlus.setImage(released);
+        imagePlus.setImage(hoverEnter_plus);
+    }
+    public void whenHoverExitPlus()
+    {
+        imagePlus.setImage(hoverExit_plus);
+    }
+    public void whenHoverEnterFriends()
+    {
+        imageFriends.setImage(hoverEnter_friends);
+    }
+    public void whenHoverExitFriends()
+    {
+        imageFriends.setImage(hoverExit_friends);
+    }
+    public void whenHoverEnterBubble()
+    {
+        imageBubble.setImage(hoverEnter_bubble);
+    }
+    public void whenHoverExitBubble()
+    {
+        imageBubble.setImage(hoverExit_bubble);
+    }
+    public void whenHoverEnterLogOut()
+    {
+        logOutButton.setImage(hoverEnter_logout);
+    }
+    public void whenHoverExitLogOut()
+    {
+        logOutButton.setImage(hoverExit_logout);
+    }
+    public void whenHoverEnterSend()
+    {
+        imageSend.setImage(hoverEnter_send);
+    }
+    public void whenHoverExitSend()
+    {
+        imageSend.setImage(hoverExit_send);
     }
 }
