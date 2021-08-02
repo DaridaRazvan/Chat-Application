@@ -2,7 +2,6 @@ package gui;
 
 import domain.User;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import repository.userRepository;
 
 import java.io.IOException;
@@ -25,8 +23,12 @@ public class MainWindow {
     @FXML
     ListView listView;
 
-    private User user;
+    @FXML
+    ImageView imagePlus;
 
+    private User user;
+    Image released = new Image("photos/plus.png");
+    Image pressed = new Image("photos/plus_blue.png");
     public void initialize(){
     }
 
@@ -35,7 +37,7 @@ public class MainWindow {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("addUsers.fxml"));
             Parent root = fxmlLoader.load();
-
+            imagePlus.setImage(released);
             AddUsers addUsers = fxmlLoader.getController();
             addUsers.populateList(user);
 
@@ -74,5 +76,13 @@ public class MainWindow {
             friendList.add(userRepository.getUser(f));
         }
         listView.setItems(friendList);
+    }
+    public void whenPressed()
+    {
+        imagePlus.setImage(pressed);
+    }
+    public void whenReleased()
+    {
+        imagePlus.setImage(released);
     }
 }
