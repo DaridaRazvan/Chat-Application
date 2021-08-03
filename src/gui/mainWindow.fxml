@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow">
    <left>
       <HBox prefHeight="400.0" prefWidth="169.0" styleClass="light-blue-background" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -36,7 +36,7 @@
                         <Insets left="7.0" />
                      </VBox.margin>
                   </ImageView>
-                  <ImageView fx:id="imageBubble" fitHeight="31.0" fitWidth="27.0" onMouseClicked="#showMessages" onMouseEntered="#whenHoverEnterBubble" onMouseExited="#whenHoverExitBubble" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageBubble" fitHeight="31.0" fitWidth="27.0" onMouseClicked="#showListMessages" onMouseEntered="#whenHoverEnterBubble" onMouseExited="#whenHoverExitBubble" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../photos/speech-bubbles-with-ellipsis.png" />
                      </image>
@@ -67,10 +67,13 @@
          <top>
             <HBox prefHeight="42.0" prefWidth="430.0" styleClass="white-background" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="\@rzvn">
+                  <Label fx:id="labelUser">
                      <font>
                         <Font size="21.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
                   </Label>
                   <ImageView fitHeight="17.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -86,12 +89,12 @@
          <bottom>
             <HBox prefHeight="42.0" prefWidth="430.0" styleClass="white-background" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <TextField prefHeight="48.0" prefWidth="382.0" promptText="Message">
+                  <TextField fx:id="textField" prefHeight="48.0" prefWidth="382.0" promptText="Message">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </TextField>
-                  <ImageView fx:id="imageSend" fitHeight="30.0" fitWidth="32.0" onMouseEntered="#whenHoverEnterSend" onMouseExited="#whenHoverExitSend" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageSend" fitHeight="30.0" fitWidth="32.0" onMouseClicked="#sendMessage" onMouseEntered="#whenHoverEnterSend" onMouseExited="#whenHoverExitSend" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../photos/send.png" />
                      </image>

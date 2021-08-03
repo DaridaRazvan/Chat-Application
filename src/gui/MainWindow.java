@@ -8,9 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -41,6 +39,12 @@ public class MainWindow {
 
     @FXML
     ImageView imageSend;
+
+    @FXML
+    Label labelUser;
+
+    @FXML
+    TextField textField;
 
     private User user;
 
@@ -97,7 +101,7 @@ public class MainWindow {
         //System.out.println(selectedUser);
         messageRepository messageRepository = new messageRepository();
         ArrayList<Message> messages = messageRepository.getMessages(user,selectedUser);
-
+        labelUser.setText("@" + selectedUser.getUsername());
         String text = "";
 
         for(Message m : messages){
@@ -123,7 +127,7 @@ public class MainWindow {
         listView.setItems(friendList);
     }
 
-    public void showMessages()
+    public void showListMessages()
     {
         listView.getItems().clear();
         ObservableList<User> userList = FXCollections.observableArrayList();
@@ -135,6 +139,16 @@ public class MainWindow {
             userList.add(userRepository.getUser(u));
         }
         listView.setItems(userList);
+    }
+
+    public void sendMessage()
+    {
+        messageRepository messageRepository = new messageRepository();
+        User selectedUser = (User) listView.getSelectionModel().getSelectedItem();
+        String message = textField.getText();
+        messageRepository.addMessage(user.getId(),selectedUser.getId(),message);
+        displayMessages();
+        textField.clear();
     }
     public void whenHoverEnterPlus()
     {

@@ -13,9 +13,19 @@ import java.util.ArrayList;
 
 public class messageRepository {
 
-    public void addMessage()
+    public void addMessage(int user1, int user2, String message)
     {
+        String sql = "insert into messages (userid1, userid2, message) values (?, ?, ?)";
 
+        try(Connection connection = new dbConnection().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, user1);
+            ps.setInt(2, user2);
+            ps.setString(3, message);
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Message> getMessages(User user1, User user2)
