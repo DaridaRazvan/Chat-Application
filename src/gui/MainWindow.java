@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -24,6 +26,9 @@ public class MainWindow {
 
     @FXML
     ListView listView;
+
+    @FXML
+    TextArea messageArea;
 
     @FXML
     ImageView imagePlus;
@@ -51,6 +56,7 @@ public class MainWindow {
     Image hoverEnter_send = new Image("photos/send_orange.png");
 
     public void initialize(){
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     public void addUsers(){
@@ -84,6 +90,24 @@ public class MainWindow {
 
     public void setTitle(Stage stage){
         stage.setTitle("Welcome " + user.getFirstName() + " " + user.getLastName() + "!");
+    }
+
+    public void displayMessages(){
+        User selectedUser = (User) listView.getSelectionModel().getSelectedItem();
+        //System.out.println(selectedUser);
+        messageRepository messageRepository = new messageRepository();
+        ArrayList<Message> messages = messageRepository.getMessages(user,selectedUser);
+
+        String text = "";
+
+        for(Message m : messages){
+            if(m.getUser1() == user.getId()){
+                text += user.getFirstName() + " " + user.getLastName() + ": " + m.getMessage() + '\n';
+            }else{
+                text += selectedUser.getFirstName() + " " + selectedUser.getLastName() + ": " + m.getMessage() + '\n';
+            }
+        }
+        messageArea.setText(text);
     }
 
     public void setFriendList(){
