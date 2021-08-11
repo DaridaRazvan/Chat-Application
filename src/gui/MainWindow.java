@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import repository.messageRepository;
 import repository.userRepository;
+import service.userService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,6 +46,9 @@ public class MainWindow {
 
     @FXML
     TextField textField;
+
+    @FXML
+    TextField searchBar;
 
     private User user;
 
@@ -150,6 +154,25 @@ public class MainWindow {
         displayMessages();
         textField.clear();
     }
+
+    public void filterList(){
+        String filterText = searchBar.getText();
+        userService userService = new userService();
+        ObservableList<User> usersObs = listView.getItems();
+        ArrayList<User> users = new ArrayList<>();
+
+        for(User u : usersObs){
+            users.add(u);
+        }
+
+        ArrayList<User> filteredUsers = userService.filterUsers(users,filterText);
+        ObservableList<User> filteredUsersObs = FXCollections.observableArrayList();
+        filteredUsersObs.addAll(filteredUsers);
+
+        listView.setItems(filteredUsersObs);
+    }
+
+
     public void whenHoverEnterPlus()
     {
         imagePlus.setImage(hoverEnter_plus);
