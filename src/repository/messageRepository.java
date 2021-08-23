@@ -47,7 +47,7 @@ public class messageRepository {
 
     }
 
-    public ArrayList<Integer> getUserMessage(User user)
+    public static ArrayList<Integer> getUserMessage(User user)
     {
         ArrayList<Integer> userId = new ArrayList<>();
         String sql = "Select userid1, userid2 from messages where userid1 = " + user.getId() + "or userid2 = " + user.getId();

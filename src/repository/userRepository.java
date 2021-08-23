@@ -124,7 +124,7 @@ public class userRepository {
         return -1;
     }
 
-    public ArrayList<Integer> getUserFriends(User user){
+    public static ArrayList<Integer> getUserFriends(User user){
         ArrayList<Integer> userFriends = new ArrayList<>();
         String sql = "Select * from friendlist where userid1= " + user.getId() +" or userid2 = " + user.getId();
         try(Connection connection = new dbConnection().getConnection();
@@ -144,7 +144,7 @@ public class userRepository {
         return userFriends;
     }
 
-    public User getUser(int id){
+    public static User getUser(int id){
         String sql = "Select * from users where id = " + id;
         try(Connection connection = new dbConnection().getConnection();
             PreparedStatement ps = connection.prepareStatement(sql);

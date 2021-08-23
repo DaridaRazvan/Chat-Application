@@ -1,6 +1,7 @@
 package gui;
 
 import domain.Message;
+import domain.SelectedMenu;
 import domain.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import observer.Observer;
+import observer.Subject;
 import repository.messageRepository;
 import repository.userRepository;
 import service.userService;
@@ -19,7 +22,10 @@ import service.userService;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainWindow {
+public class MainWindow implements Observer {
+
+    Enum<SelectedMenu> selected = SelectedMenu.NONE;
+
     @FXML
     ImageView logOutButton;
 
@@ -63,7 +69,10 @@ public class MainWindow {
     Image hoverExit_send = new Image("photos/send.png");
     Image hoverEnter_send = new Image("photos/send_orange.png");
 
+
     public void initialize(){
+        Subject subject = Subject.getInstance();
+        subject.addObserver(this);
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
@@ -116,11 +125,13 @@ public class MainWindow {
             }
         }
         messageArea.setText(text);
+        messageArea.setScrollTop(Double.MAX_VALUE);
     }
 
     public void setFriendList(){
         System.out.println(user);
         listView.getItems().clear();
+        selected = SelectedMenu.FRIEND_LIST;
         ObservableList<User> friendList = FXCollections.observableArrayList();
         userRepository userRepository = new userRepository();
         ArrayList<Integer> friendListId = userRepository.getUserFriends(user);
@@ -134,6 +145,7 @@ public class MainWindow {
     public void showListMessages()
     {
         listView.getItems().clear();
+        selected = SelectedMenu.MESSAGE_LIST;
         ObservableList<User> userList = FXCollections.observableArrayList();
         messageRepository messageRepository = new messageRepository();
         userRepository userRepository = new userRepository();
@@ -147,29 +159,39 @@ public class MainWindow {
 
     public void sendMessage()
     {
+        Subject subject = Subject.getInstance();
         messageRepository messageRepository = new messageRepository();
         User selectedUser = (User) listView.getSelectionModel().getSelectedItem();
         String message = textField.getText();
         messageRepository.addMessage(user.getId(),selectedUser.getId(),message);
         displayMessages();
         textField.clear();
+        subject.notifyObs();
     }
 
     public void filterList(){
         String filterText = searchBar.getText();
         userService userService = new userService();
-        ObservableList<User> usersObs = listView.getItems();
         ArrayList<User> users = new ArrayList<>();
-
-        for(User u : usersObs){
-            users.add(u);
+        if(selected == SelectedMenu.FRIEND_LIST) {
+            ArrayList<Integer> friendListId = userRepository.getUserFriends(user);
+            for(Integer f : friendListId){
+                users.add(userRepository.getUser(f));
+            }
+        }
+        else {
+            ArrayList<Integer> usersList = messageRepository.getUserMessage(user);
+            for(int u : usersList)
+            {
+                users.add(userRepository.getUser(u));
+            }
         }
 
         ArrayList<User> filteredUsers = userService.filterUsers(users,filterText);
         ObservableList<User> filteredUsersObs = FXCollections.observableArrayList();
         filteredUsersObs.addAll(filteredUsers);
-
         listView.setItems(filteredUsersObs);
+
     }
 
 
@@ -212,5 +234,10 @@ public class MainWindow {
     public void whenHoverExitSend()
     {
         imageSend.setImage(hoverExit_send);
+    }
+
+    @Override
+    public void update() {
+        displayMessages();
     }
 }

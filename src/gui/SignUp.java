@@ -6,9 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import service.userService;
+import validation.Validator;
 
 
-public class SignUp {
+public class SignUp  {
 
     @FXML
     TextField usernameField;
@@ -25,9 +26,23 @@ public class SignUp {
     @FXML
     TextField lastNameField;
 
+    Validator validator = new Validator();
+
     public void addUser(){
         String pass = passwordField.getText();
         String passCheck = confirmPasswordField.getText();
+
+        if(!validator.validateName(usernameField.getText())){
+            CustomException customException = new CustomException("Error","Not a valid username","Don't use special characters!");
+            customException.show();
+            return;
+        }
+
+        if(!validator.validatePassword(passwordField.getText())){
+            CustomException customException = new CustomException("Error","Not a valid password","Don't use special characters!");
+            customException.show();
+            return;
+        }
 
         if(!pass.equals(passCheck))
         {
